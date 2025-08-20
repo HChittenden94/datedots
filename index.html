@@ -8,7 +8,7 @@
       padding: 20px;
       text-align: center;
       max-width: 350px;
-      background-color: #F3F6F4; /* soft, light greenish-gray */
+      background-color: #F3F6F4;
       color: #333;   
       margin: 0 auto;
     }
@@ -17,11 +17,11 @@
       padding: 10px 15px;
       font-size: 16px;
       cursor: pointer;
-      background-color: #00704A; /* Starbucks green */
+      background-color: #00704A;
       color: white;
       border: none;
-      border-radius: 8px;       /* Rounded corners */
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* subtle shadow */
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       transition: transform 0.1s, box-shadow 0.1s;
       width: 155px;
       min-height: 50px;
@@ -29,10 +29,10 @@
 
     .button-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns */
-      gap: 2%; /* space between buttons */
-      justify-items: center; /* centers buttons in each column */
-      margin-bottom: 25px; /* space below grid */
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2%;
+      justify-items: center; 
+      margin-bottom: 25px;
     }
 
     .result {
@@ -40,6 +40,7 @@
       font-weight: bold;
       line-height: 1.75em;
     }
+
     .day-badge {
       color: white;
       padding: 2px 6px;
@@ -47,9 +48,65 @@
       font-weight: bold;
     }
 
-    #footer {
-      font-size: 10px;
+    .section {
+      padding: 0px;
+    }
 
+    .section::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 30px; /* adjust based on your image */
+      margin: 20px auto 0;
+      background: url("images/coffee-bean-border.png") center no-repeat;
+      background-size: contain; /* scales image to fit width */
+    }
+
+    .section h3 {
+      margin-top: 0;
+      color: #000;
+      font-weight: bold;
+    }
+
+    #coldbar::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 30px;
+      margin: 0 auto 20px;
+      background: url("images/coffee-bean-border.png") center no-repeat;
+      background-size: contain;
+    }
+
+    #scroll-section {
+      max-height: calc(100vh - 380px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 5px;
+      box-sizing: border-box;
+    }
+
+    #scroll-section::-webkit-scrollbar {
+      width: 6px;  /* thinner overall */
+    }
+
+    #scroll-section::-webkit-scrollbar-thumb {
+      background: rgba(0, 112, 74, 0.5); /* Starbucks green, transparent */
+      border-radius: 10px;                /* more rounded = lighter look */
+      min-height: 30px;                   /* ensure it never grows too tall visually */
+    }
+
+    #scroll-section::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 112, 74, 0.7);  /* slightly darker on hover */
+    }
+
+    #scroll-section::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);    /* faint track */
+    }
+
+    #footer {
+      margin-top: 4%;
+      font-size: 10px;
     }
   </style>
   <meta name="viewport" content="user-scalable=no, width=device-width" />
@@ -66,6 +123,8 @@
   <div id="output" class="result"></div>
   <hr>
 
+<div id="scroll-section">
+  <div class="section" id="coldbar">
   <!-- Cold Bar -->
   <h3>Cold Bar:</h3>
     <div class="button-grid">
@@ -78,9 +137,11 @@
       <button onclick="calculateExpiration('Vanilla Sweet Cream', { hours: 48 })">Vanilla Sweet Cream</button>
       <button onclick="calculateExpiration('Whipped Cream', { hours: 24 })">Whipped Cream</button>
     </div>
+  </div>
 
   <!-- Hot Bar -->
-  <h3>Hot Bar:</h3>
+  <div class="section">
+  <h3><br>Hot Bar:</h3>
     <div class="button-grid">
       <button onclick="calculateExpiration('Chai', { hours: 24 })">Chai</button>
       <button onclick="calculateExpiration('Mocha', { hours: 24 })">Mocha</button>
@@ -89,42 +150,34 @@
       <button onclick="calculateExpiration('Caramel Drizzle Bottles', { weeks: 2 })">Caramel Drizzle</button>
       <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
     </div>
+  </div>
+
+
+  <!-- Food -->
+  <div class="section">
+  <h3><br>Food:</h3>
+  <div class="button-grid">
+    <button onclick="calculateExpiration('Egg Bites', { weeks: 1 }, 'food')">Egg Bites</button>
+    <button onclick="calculateExpiration('Pastries', { hours: 48 }, 'food')">Pastries</button>
+    <button onclick="calculateExpiration('Cake Pops', { hours: 72 }, 'food')">Cake Pops</button>
+    <button onclick="calculateExpiration('Madelines', { weeks: 2 }, 'food')">Madelines</button>
+    <button onclick="calculateExpiration('Marshmallow Dream Bars', { weeks: 2 }, 'food')">Marshmallow Dream Bars</button>
+    <button onclick="calculateExpiration('Breakfast Sandwiches', { hours: 48 }, 'food')">Breakfast Sandwiches</button>
+  </div>
+</div>
+</div>
 
   <div id="footer"><br>Designed by Hayley, for my friends at 2907 &hearts;</div>
 
   <script>
-    // Function to round to nearest half hour
-    function roundToNearestHalfHour(date) {
-      const minutes = date.getMinutes();
-      if (minutes < 15) {
-        date.setMinutes(0, 0, 0);
-      } else if (minutes < 45) {
-        date.setMinutes(30, 0, 0);
-      } else {
-        date.setHours(date.getHours() + 1, 0, 0, 0);
-      }
-      return date;
-    }
-
-    function calculateExpiration(itemName, duration) {
+    function calculateExpiration(itemName, duration, type = "bar") {
       const now = new Date();
       const expiration = new Date(now);
 
-      // Add duration
-      if (duration.hours) {
-        expiration.setHours(expiration.getHours() + duration.hours);
-      }
-      if (duration.days) {
-        expiration.setDate(expiration.getDate() + duration.days);
-      }
-      if (duration.weeks) {
-        expiration.setDate(expiration.getDate() + duration.weeks * 7);
-      }
+      if (duration.hours) expiration.setHours(expiration.getHours() + duration.hours);
+      if (duration.days) expiration.setDate(expiration.getDate() + duration.days);
+      if (duration.weeks) expiration.setDate(expiration.getDate() + duration.weeks * 7);
 
-      // Round time
-      roundToNearestHalfHour(expiration);
-
-      // Day names + colors
       const daysOfWeek = [
         { name: "Sunday", color: "#000" },
         { name: "Monday", color: "#1639C9" },
@@ -139,13 +192,17 @@
       const dayName = daysOfWeek[dayIndex].name;
       const dayColor = daysOfWeek[dayIndex].color;
 
-      // Output
-      document.getElementById("output").innerHTML =
-        `<span class="day-badge" style="background-color:${dayColor}; font-size: 16pt;">${dayName}</span><br>
-        <span style="font-size: 16pt;">${expiration.toLocaleString([], { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>`
-        ;
+      let expirationText = "";
+      if (type === "food") {
+        expirationText = `<span style="font-size: 16pt;">${expiration.toLocaleString([], { month: 'numeric', day: 'numeric'})}, End of Day</span>`;
+      } else {
+        expirationText = `<span style="font-size: 16pt;">${expiration.toLocaleString([], { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>`;
+      }
 
-    document.getElementById("itemName").innerHTML =
+      document.getElementById("output").innerHTML =
+        `<span class="day-badge" style="background-color:${dayColor}; font-size: 16pt;">${dayName}</span><br>${expirationText}`;
+
+      document.getElementById("itemName").innerHTML =
         `<span style="font-style: italic;">${itemName}</span> expire(s) on:`;
     }
   </script>
