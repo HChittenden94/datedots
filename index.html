@@ -37,36 +37,15 @@
     }
 
     summary {
-      list-style: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      position: relative;
-      cursor: pointer;
-      padding: 12px 10px;
-      border-radius: 6px;
       font-size: 16pt;
       font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      padding: 5px 0;
+      list-style: none;
+      position: relative;
+      border-radius: 6px;
       transition: all 0.2s;
-    }
-
-    summary::after {
-      content: "";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 8px solid white;
-      transform: translateY(-50%);
-      transition: transform 0.2s, border-top-color 0.2s;
-    }
-
-    details[open] summary::after {
-      transform: rotate(180deg) translateY(-50%);
-      border-top-color: #00704A;
     }
 
     details:not([open]) summary {
@@ -77,6 +56,20 @@
     details[open] summary {
       background-color: #FDFDFD;
       color: #00704A;
+    }
+
+    .arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid currentColor;
+      transition: transform 0.2s;
+    }
+
+    details[open] .arrow {
+      transform: rotate(180deg);
     }
 
     .button-grid {
@@ -122,7 +115,7 @@
   <div class="section" id="coldbar">
   <!-- Cold Bar -->
   <details open>
-  <summary>Cold Bar</summary>
+  <summary>Cold Bar <span class="arrow"></span></summary>
     <div class="button-grid">
       <button onclick="calculateExpiration('Inclusions', { days: 5 })">Inclusions</button>
       <button onclick="calculateExpiration('Matcha Powder', { weeks: 1 })">Matcha Powder</button>
@@ -141,7 +134,7 @@
   <!-- Hot Bar -->
   <div class="section">
     <details>
-      <summary>Hot Bar</summary>
+      <summary>Hot Bar <span class="arrow"></span></summary>
         <div class="button-grid">
           <button onclick="calculateExpiration('Chai', { hours: 24 })">Chai</button>
           <button onclick="calculateExpiration('Mocha', { hours: 24 })">Mocha</button>
@@ -154,7 +147,7 @@
   <!-- Food -->
   <div class="section">
   <details>
-  <summary>Food</summary>
+  <summary>Food & Pastries <span class="arrow"></span></summary>
   <div class="button-grid">
     <button onclick="calculateExpiration('Egg Bites', { weeks: 1 }, 'food')">Egg Bites</button>
     <button onclick="calculateExpiration('Pastries', { hours: 48 }, 'food')">Pastries</button>
