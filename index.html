@@ -12,6 +12,7 @@
       color: #333;   
       margin: 0 auto;
     }
+
     button {
       margin: 5px;
       padding: 10px 15px;
@@ -25,6 +26,51 @@
       transition: transform 0.1s, box-shadow 0.1s;
       width: 155px;
       min-height: 50px;
+    }
+
+    details {
+      margin: 20px 0;
+      border-radius: 8px;
+      padding: 5px;
+      background: #FDFDFD;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    summary {
+      font-size: 16pt;
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      padding: 5px 0;
+      list-style: none;
+      position: relative;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    /* Custom arrow */
+    summary::after {
+      content: "▼";
+      position: absolute;
+      right: 10px;
+      transition: transform 0.2s;
+    }
+
+    /* Flip arrow when open */
+    details[open] summary::after {
+      transform: rotate(-180deg);
+    }
+
+    /* Closed details */
+    details:not([open]) summary {
+      background-color: #00704A;
+      color: white;
+    }
+
+    /* Open details */
+    details[open] summary {
+      background-color: #FDFDFD;
+      color: #00704A;
     }
 
     .button-grid {
@@ -48,62 +94,6 @@
       font-weight: bold;
     }
 
-    .section {
-      padding: 0px;
-    }
-
-    .section::after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 30px; /* adjust based on your image */
-      margin: 20px auto 0;
-      background: url("images/coffee-bean-border.png") center no-repeat;
-      background-size: contain; /* scales image to fit width */
-    }
-
-    .section h3 {
-      margin-top: 0;
-      color: #000;
-      font-weight: bold;
-    }
-
-    #coldbar::before {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 30px;
-      margin: 0 auto 20px;
-      background: url("images/coffee-bean-border.png") center no-repeat;
-      background-size: contain;
-    }
-
-    #scroll-section {
-      max-height: calc(100vh - 380px);
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding-right: 5px;
-      box-sizing: border-box;
-    }
-
-    #scroll-section::-webkit-scrollbar {
-      width: 6px;  /* thinner overall */
-    }
-
-    #scroll-section::-webkit-scrollbar-thumb {
-      background: rgba(0, 112, 74, 0.5); /* Starbucks green, transparent */
-      border-radius: 10px;                /* more rounded = lighter look */
-      min-height: 30px;                   /* ensure it never grows too tall visually */
-    }
-
-    #scroll-section::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 112, 74, 0.7);  /* slightly darker on hover */
-    }
-
-    #scroll-section::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);    /* faint track */
-    }
-
     #footer {
       margin-top: 4%;
       font-size: 10px;
@@ -123,10 +113,10 @@
   <div id="output" class="result"></div>
   <hr>
 
-<div id="scroll-section">
   <div class="section" id="coldbar">
   <!-- Cold Bar -->
-  <h3>Cold Bar:</h3>
+  <details open>
+  <summary>Cold Bar</summary>
     <div class="button-grid">
       <button onclick="calculateExpiration('Inclusions', { days: 5 })">Inclusions</button>
       <button onclick="calculateExpiration('Matcha Powder', { weeks: 1 })">Matcha Powder</button>
@@ -134,28 +124,31 @@
       <button onclick="calculateExpiration('Vanilla Bean Powder', { weeks: 1 })">Vanilla Bean Powder</button>
       <button onclick="calculateExpiration('Frappuccino Roast', { hours: 48 })">Frappuccino Roast</button>
       <button onclick="calculateExpiration('Lemonade', { hours: 48 })">Lemonade</button>
+      <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
+      <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
       <button onclick="calculateExpiration('Vanilla Sweet Cream', { hours: 48 })">Vanilla Sweet Cream</button>
       <button onclick="calculateExpiration('Whipped Cream', { hours: 24 })">Whipped Cream</button>
     </div>
-  </div>
+  </details>
+</div>
 
   <!-- Hot Bar -->
   <div class="section">
-  <h3><br>Hot Bar:</h3>
-    <div class="button-grid">
-      <button onclick="calculateExpiration('Chai', { hours: 24 })">Chai</button>
-      <button onclick="calculateExpiration('Mocha', { hours: 24 })">Mocha</button>
-      <button onclick="calculateExpiration('White Mocha', { weeks: 2 })">White Mocha</button>
-      <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
-      <button onclick="calculateExpiration('Caramel Drizzle Bottles', { weeks: 2 })">Caramel Drizzle</button>
-      <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
+    <details>
+      <summary>Hot Bar</summary>
+        <div class="button-grid">
+          <button onclick="calculateExpiration('Chai', { hours: 24 })">Chai</button>
+          <button onclick="calculateExpiration('Mocha', { hours: 24 })">Mocha</button>
+          <button onclick="calculateExpiration('White Mocha', { weeks: 2 })">White Mocha</button>
+          <button onclick="calculateExpiration('Caramel Drizzle Bottles', { weeks: 2 })">Caramel Drizzle</button>
+        </div>
+      </details>
     </div>
-  </div>
-
 
   <!-- Food -->
   <div class="section">
-  <h3><br>Food:</h3>
+  <details>
+  <summary>Food</summary>
   <div class="button-grid">
     <button onclick="calculateExpiration('Egg Bites', { weeks: 1 }, 'food')">Egg Bites</button>
     <button onclick="calculateExpiration('Pastries', { hours: 48 }, 'food')">Pastries</button>
@@ -164,7 +157,7 @@
     <button onclick="calculateExpiration('Marshmallow Dream Bars', { weeks: 2 }, 'food')">Marshmallow Dream Bars</button>
     <button onclick="calculateExpiration('Breakfast Sandwiches', { hours: 48 }, 'food')">Breakfast Sandwiches</button>
   </div>
-</div>
+</details>
 </div>
 
   <div id="footer"><br>Designed by Hayley, for my friends at 2907 &hearts;</div>
