@@ -135,6 +135,10 @@
       text-align: left;
     }
 
+    #viewKeyLink {
+      color: #00704A;
+    }
+
     #footer {
       margin-top: 4%;
       font-size: 10px;
@@ -211,11 +215,12 @@
   <details>
     <summary>Seasonal <span class="arrow"></span></summary>
     <div id="seasonalButtons" class="button-grid">
-      <button data-item="Pumpkin Spice" data-start="7-15" data-end="0-31" onclick="calculateExpiration('Pumpkin Spice', {weeks:2}, 'seasonal')">Pumpkin Spice</button>
+      <button data-item="Pumpkin Spice" data-start="7-15" data-end="0-31" onclick="calculateExpiration('Pumpkin Spice', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
       <button data-item="Cherry Powder" data-start="1-15" data-end="4-31" onclick="calculateExpiration('Cherry Powder', {weeks:2}, 'seasonal')">Cherry Powder</button>
       <button data-item="Boba Pearls" data-start="4-15" data-end="7-15" onclick="calculateExpiration('Boba Pearls', {days:5}, 'seasonal')">Boba Pearls</button>
     </div>
-    <label><input type="checkbox" id="showAllSeasonal"> Show All</label>
+    <label style="display: flex; align-items: center; justify-content: center; text-align: center;
+      line-height: 1.2; font-size: 12px; white-space: normal;"><input type="checkbox" id="showAllSeasonal">Show All</label>
   </details>
 </div>
 
