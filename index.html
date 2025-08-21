@@ -23,9 +23,21 @@
       border: none;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: transform 0.1s, box-shadow 0.1s;
+      transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
       width: 155px;
       min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    button:active {
+      background-color: #005C3A;
+      transform: scale(0.97);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
     details:not([open]) {
@@ -102,10 +114,32 @@
       font-weight: bold;
     }
 
+    #seasonalButtons button {
+      display: none;
+    }
+
+    #keyContainer ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #keyContainer ul li strong {
+      display: block;        /* makes it full width */
+      text-align: left;    /* centers the text */
+      margin-top: 20px;
+      text-decoration: underline;
+    }
+
+    /* Left-align all items under each category */
+    #keyContainer ul li {
+      text-align: left;
+    }
+
     #footer {
       margin-top: 4%;
       font-size: 10px;
     }
+
   </style>
   <meta name="viewport" content="user-scalable=no, width=device-width" />
   <script src="cordova.js"></script>
@@ -126,12 +160,14 @@
   <details open>
   <summary>Cold Bar <span class="arrow"></span></summary>
     <div class="button-grid">
+      <button onclick="calculateExpiration('Lemonade', { hours: 48 })">Lemonade</button>
+      <button onclick="calculateExpiration('Refreshers', { hours: 72 })">Refreshers</button>
       <button onclick="calculateExpiration('Inclusions', { days: 5 })">Inclusions</button>
       <button onclick="calculateExpiration('Matcha Powder', { weeks: 1 })">Matcha Powder</button>
+      <button onclick="calculateExpiration('Lavender Powder', { weeks: 2 })">Lavender Powder</button>
       <button onclick="calculateExpiration('Frappuccino Chips', { weeks: 1 })">Frappuccino Chips</button>
       <button onclick="calculateExpiration('Vanilla Bean Powder', { weeks: 1 })">Vanilla Bean Powder</button>
       <button onclick="calculateExpiration('Frappuccino Roast', { hours: 48 })">Frappuccino Roast</button>
-      <button onclick="calculateExpiration('Lemonade', { hours: 48 })">Lemonade</button>
       <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
       <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
       <button onclick="calculateExpiration('Vanilla Sweet Cream', { hours: 48 })">Vanilla Sweet Cream</button>
@@ -147,26 +183,45 @@
         <div class="button-grid">
           <button onclick="calculateExpiration('Chai', { hours: 24 })">Chai</button>
           <button onclick="calculateExpiration('Mocha', { hours: 24 })">Mocha</button>
+          <button onclick="calculateExpiration('Syrups', { months: 1 })">Syrups</button>
+          <button onclick="calculateExpiration('Sauces', { weeks: 2 })">Sauces</button>
           <button onclick="calculateExpiration('White Mocha', { weeks: 2 })">White Mocha</button>
           <button onclick="calculateExpiration('Caramel Drizzle Bottles', { weeks: 2 })">Caramel Drizzle</button>
-        </div>
-      </details>
-    </div>
+      </div>
+    </details>
+  </div>
 
   <!-- Food -->
   <div class="section">
-  <details>
-  <summary>Food & Pastries <span class="arrow"></span></summary>
-  <div class="button-grid">
-    <button onclick="calculateExpiration('Egg Bites', { weeks: 1 }, 'food')">Egg Bites</button>
-    <button onclick="calculateExpiration('Pastries', { hours: 48 }, 'food')">Pastries</button>
-    <button onclick="calculateExpiration('Cake Pops', { hours: 72 }, 'food')">Cake Pops</button>
-    <button onclick="calculateExpiration('Madelines', { weeks: 2 }, 'food')">Madelines</button>
-    <button onclick="calculateExpiration('Marshmallow Dream Bars', { weeks: 2 }, 'food')">Marshmallow Dream Bars</button>
-    <button onclick="calculateExpiration('Breakfast Sandwiches', { hours: 48 }, 'food')">Breakfast Sandwiches</button>
-  </div>
-</details>
+    <details>
+    <summary>Food & Pastries <span class="arrow"></span></summary>
+    <div class="button-grid">
+      <button onclick="calculateExpiration('Egg Bites', { weeks: 1 }, 'food')">Egg Bites</button>
+      <button onclick="calculateExpiration('Ham & Swiss Croissants', { hours: 48 }, 'food')">Ham & Swiss Croissants</button>
+      <button onclick="calculateExpiration('Pastries', { hours: 48 }, 'food')">Pastries</button>
+      <button onclick="calculateExpiration('Breakfast Sandwiches', { hours: 48 }, 'food')">Breakfast Sandwiches</button>
+      <button onclick="calculateExpiration('Cake Pops', { hours: 72 }, 'food')">Cake Pops</button>
+      <button onclick="calculateExpiration('Madelines', { weeks: 2 }, 'food')">Madelines</button>
+      <button onclick="calculateExpiration('Marshmallow Dream Bars', { weeks: 2 }, 'food')">Marshmallow Dream Bars</button>
+    </div>
+  </details>
 </div>
+
+  <div class="section" id="seasonalSection">
+  <details>
+    <summary>Seasonal <span class="arrow"></span></summary>
+    <div id="seasonalButtons" class="button-grid">
+      <button data-item="Pumpkin Spice" data-start="7-15" data-end="0-31" onclick="calculateExpiration('Pumpkin Spice', {weeks:2}, 'seasonal')">Pumpkin Spice</button>
+      <button data-item="Cherry Powder" data-start="1-15" data-end="4-31" onclick="calculateExpiration('Cherry Powder', {weeks:2}, 'seasonal')">Cherry Powder</button>
+      <button data-item="Boba Pearls" data-start="4-15" data-end="7-15" onclick="calculateExpiration('Boba Pearls', {days:5}, 'seasonal')">Boba Pearls</button>
+    </div>
+    <label><input type="checkbox" id="showAllSeasonal"> Show All</label>
+  </details>
+</div>
+
+
+  <div><a href="#" id="viewKeyLink">View Key</a></div>
+  <div id="keyContainer" style="display: none; margin-top: 10px;"></div>
 
   <div id="footer"><br>Designed by Hayley, for my friends at 2907 &hearts;</div>
 
@@ -206,7 +261,117 @@
       document.getElementById("itemName").innerHTML =
         `<span style="font-style: italic;">${itemName}</span> expire(s) on:`;
     }
-  </script>
+
+  function showSeasonalButtons(forceShowAll = false) {
+  const now = new Date();
+  const buttons = document.querySelectorAll('#seasonalButtons button');
+  let anyVisible = false;
+
+  buttons.forEach(btn => {
+    if (forceShowAll) {
+      btn.style.display = 'inline-block';
+      anyVisible = true;
+      return;
+    }
+
+    const [startMonth, startDay] = btn.dataset.start.split('-').map(Number);
+    const [endMonth, endDay] = btn.dataset.end.split('-').map(Number);
+
+    const start = new Date(now.getFullYear(), startMonth, startDay);
+    const end = new Date(now.getFullYear(), endMonth, endDay, 23, 59, 59);
+
+    let inRange = false;
+    if (end < start) {
+      // Handles ranges that span year-end
+      inRange = now >= start || now <= end;
+    } else {
+      inRange = now >= start && now <= end;
+    }
+
+    btn.style.display = inRange ? 'inline-block' : 'none';
+    if (inRange) anyVisible = true;
+  });
+
+  const seasonalSection = document.getElementById('seasonalSection');
+  seasonalSection.style.display = anyVisible ? 'block' : 'none';
+}
+
+document.getElementById('showAllSeasonal').addEventListener('change', e => {
+  showSeasonalButtons(e.target.checked);
+});
+
+function generateKeyFromAllButtons() {
+  const keyContainer = document.getElementById('keyContainer');
+  const sections = document.querySelectorAll('.section');
+
+  let html = '<ul>';
+
+  sections.forEach(section => {
+    const summary = section.querySelector('summary');
+    if (!summary) return;
+    const categoryName = summary.innerText.replace('▼','').trim();
+    const buttons = section.querySelectorAll('button');
+    if (buttons.length === 0) return;
+
+    html += `<li><strong>${categoryName}</strong><ul>`;
+
+    buttons.forEach(btn => {
+      const onclickText = btn.getAttribute('onclick'); 
+
+      // Extract item name
+      const nameMatch = onclickText.match(/calculateExpiration\('(.+?)'/);
+      const itemName = nameMatch ? nameMatch[1] : btn.innerText || 'Unknown';
+
+      // Extract duration object
+      const durationMatch = onclickText.match(/\{(.*?)\}/);
+      let durationText = '';
+      if (durationMatch) {
+      const parts = durationMatch[1].split(',').map(p => p.trim());
+      durationText = parts.map(p => {
+      const [key, valueStr] = p.split(':').map(s => s.trim());
+      const value = Number(valueStr);
+
+      // Make 'week' singular if < 2
+      let unit = key;
+      if (key === 'weeks') unit = value < 2 ? 'week' : 'weeks';
+      if (key === 'days') unit = value < 2 ? 'day' : 'days';
+      if (key === 'hours') unit = value < 2 ? 'hour' : 'hours';
+      if (key === 'months') unit = value < 2 ? 'month' : 'months';
+
+      return `${value} ${unit}`;
+    }).join(', ');
+  }
+
+    const seasonal = btn.dataset.available;
+    html += `<li><b>${itemName}:</b> ${durationText}` + (seasonal ? `<br><small><em>${seasonal}</em></small>` : '') + `</li>`;
+    });
+
+
+    html += '</ul></li>';
+  });
+
+  html += '</ul>';
+  keyContainer.innerHTML = html;
+}
+
+const viewKeyLink = document.getElementById('viewKeyLink');
+const keyContainer = document.getElementById('keyContainer');
+
+viewKeyLink.addEventListener('click', e => {
+  e.preventDefault();
+  if (keyContainer.style.display === 'none') {
+    generateKeyFromAllButtons();
+    keyContainer.style.display = 'block';
+    viewKeyLink.textContent = 'Hide Key';
+  } else {
+    keyContainer.style.display = 'none';
+    viewKeyLink.textContent = 'View Key';
+  }
+});
+
+window.onload = () => showSeasonalButtons();
+
+</script>
 
 </body>
 </html>
