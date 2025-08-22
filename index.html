@@ -124,13 +124,12 @@
     }
 
     #keyContainer ul li strong {
-      display: block;        /* makes it full width */
-      text-align: left;    /* centers the text */
+      display: block;
+      text-align: left;
       margin-top: 20px;
       text-decoration: underline;
     }
 
-    /* Left-align all items under each category */
     #keyContainer ul li {
       text-align: left;
     }
@@ -153,7 +152,7 @@
   <img src="images/logo.png" style="height: 100px; width: 100px;">
   <h1>Starbucks Prep Expiration Calculator</h1>
 
-    <!-- Output -->
+  <!-- Output -->
   <hr>
   <span id="itemName"><br><br><br><br><br></span>
   <div id="output" class="result"></div>
@@ -215,7 +214,7 @@
   <details>
     <summary>Seasonal <span class="arrow"></span></summary>
     <div id="seasonalButtons" class="button-grid">
-      <button data-item="Pumpkin Spice" data-start="7-15" data-end="0-31" onclick="calculateExpiration('Pumpkin Spice', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
+      <button data-item="Pumpkin Spice Sauce" data-start="7-15" data-end="0-31" onclick="calculateExpiration('Pumpkin Spice Sauce', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
       <button data-item="Cherry Powder" data-start="1-15" data-end="4-31" onclick="calculateExpiration('Cherry Powder', {weeks:2}, 'seasonal')">Cherry Powder</button>
       <button data-item="Boba Pearls" data-start="4-15" data-end="7-15" onclick="calculateExpiration('Boba Pearls', {days:5}, 'seasonal')">Boba Pearls</button>
     </div>
