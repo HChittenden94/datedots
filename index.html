@@ -220,9 +220,11 @@
   <details>
     <summary>Seasonal <span class="arrow"></span></summary>
     <div id="seasonalButtons" class="button-grid">
-      <button data-item="Pumpkin Spice Sauce" data-start="7-15" data-end="0-31" onclick="calculateExpiration('Pumpkin Spice Sauce', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
       <button data-item="Cherry Powder" data-start="1-15" data-end="4-31" onclick="calculateExpiration('Cherry Powder', {weeks:2}, 'seasonal')">Cherry Powder</button>
       <button data-item="Boba Pearls" data-start="4-15" data-end="7-15" onclick="calculateExpiration('Boba Pearls', {days:5}, 'seasonal')">Boba Pearls</button>
+      <button data-item="Pumpkin Spice Sauce" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pumpkin Spice Sauce', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
+      <button data-item="Pumpkin Spice Topping" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pumpkin Spice Topping', {weeks:2}, 'seasonal')">Pumpkin Spice Topping</button>
+      <button data-item="Pecan Topping" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pecan Topping', {months:1}, 'seasonal')">Pecan Topping</button>
     </div>
     <label style="display: flex; align-items: center; justify-content: center; text-align: center;
       line-height: 1.2; font-size: 12px; white-space: normal;"><input type="checkbox" id="showAllSeasonal">Show All</label>
@@ -243,6 +245,7 @@
       if (duration.hours) expiration.setHours(expiration.getHours() + duration.hours);
       if (duration.days) expiration.setDate(expiration.getDate() + duration.days);
       if (duration.weeks) expiration.setDate(expiration.getDate() + duration.weeks * 7);
+      if (duration.months) expiration.setMonth(expiration.getMonth() + duration.months); // <-- Added
 
       const daysOfWeek = [
         { name: "Sunday", color: "#000" },
