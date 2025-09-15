@@ -113,6 +113,19 @@
       line-height: 1.75em;
     }
 
+    #resultContainer {
+      position: sticky;
+      top: 0;
+      background: #F3F6F4;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+
+    .result {
+      font-weight: bold;
+      line-height: 1.75em;
+    }
+
     .day-badge {
       color: white;
       padding: 2px 6px;
@@ -159,10 +172,12 @@
   <h1>Starbucks Prep Expiration Calculator</h1>
 
   <!-- Output -->
+  <div id="resultContainer">
   <hr>
   <span id="itemName"><br><br><br><br><br></span>
   <div id="output" class="result"></div>
   <hr>
+  </div>
 
   <div class="section" id="coldbar">
   <!-- Cold Bar -->
