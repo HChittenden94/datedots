@@ -56,10 +56,8 @@
       background: #FDFDFD;
     }
 
-    @media (max-width: 480px) {
-      #coldbar details[open] {
-        padding-bottom: 25px;
-      }
+    #coldbar details[open] {
+      padding-bottom: 25px;
     }
     
     summary {
@@ -191,11 +189,15 @@
       <button onclick="calculateExpiration('Lavender Powder', { weeks: 2 })">Lavender Powder</button>
       <button onclick="calculateExpiration('Frappuccino Chips', { weeks: 1 })">Frappuccino Chips</button>
       <button onclick="calculateExpiration('Vanilla Bean Powder', { weeks: 1 })">Vanilla Bean Powder</button>
+      <button onclick="calculateExpiration('Protein Powder', { days: 5 })">Protein Powder</button>
+      <button onclick="calculateExpiration('Banana Powder', { hours: 24 })">Banana Powder</button>
       <button onclick="calculateExpiration('Frappuccino Roast', { hours: 48 })">Frappuccino Roast</button>
       <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
       <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
       <button onclick="calculateExpiration('Vanilla Sweet Cream', { hours: 48 })">Vanilla Sweet Cream</button>
       <button onclick="calculateExpiration('Whipped Cream', { hours: 24 })">Whipped Cream</button>
+      <button onclick="calculateExpiration('Protein Milk', { hours: 48 })">Protein Milk</button>
+      <button onclick="calculateExpiration('Unsweetened Cream', { hours: 48 })">Unsweetened Cream</button>
     </div>
   </details>
 </div>
