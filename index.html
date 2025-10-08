@@ -57,6 +57,7 @@
       justify-items: center;
     }
 
+
     details:not([open]) {
       margin: 20px 0;
       border-radius: 8px;
@@ -173,6 +174,11 @@
       font-size: 10px;
     }
 
+    .blank {
+      background-color: #fff;
+      box-shadow: none;
+    }
+
   </style>
   <meta name="viewport" content="user-scalable=no, width=device-width" />
   <script src="cordova.js"></script>
@@ -197,23 +203,23 @@
     <div class="button-grid">
     <div class="dryitems">
       <span style="color: #003A26; font-size: 12px;"><i>Dry Items</i></span>
-      <button onclick="calculateExpiration('Inclusions', { days: 5 })">Inclusions</button>
+      <button onclick="calculateExpiration('Strawberry Inclusions', { days: 5 })">Strawberry Inclusions</button>
+      <button onclick="calculateExpiration('Dragonfruit Inclusions', { days: 5 })">Dragonfruit Inclusions</button>
             <button onclick="calculateExpiration('Frappuccino Chips', { weeks: 1 })">Frappuccino Chips</button>
       <button onclick="calculateExpiration('Matcha Powder', { weeks: 1 })">Matcha Powder</button>
-      <button onclick="calculateExpiration('Lavender Powder', { weeks: 2 })">Lavender Powder</button>
       <button onclick="calculateExpiration('Vanilla Bean Powder', { weeks: 1 })">Vanilla Bean Powder</button>
       <button onclick="calculateExpiration('Protein Powder', { days: 5 })">Protein Powder</button>
       <button onclick="calculateExpiration('Banana Powder', { hours: 24 })">Banana Powder</button>
-      <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
     </div>
     <div class="liquids">
-      <span style="color: #003A26; font-size: 12px;"><i>Liquids</i></span>
+      <span style="color: #003A26; font-size: 12px;"><i>Liquids</i></span><br>
       <button onclick="calculateExpiration('Frappuccino Roast', { hours: 48 })">Frappuccino Roast</button>     
       <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
       <button onclick="calculateExpiration('Lemonade', { hours: 48 })">Lemonade</button>
       <button onclick="calculateExpiration('Refreshers', { hours: 72 })">Refreshers</button>
+      <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
+      <button onclick="calculateExpiration('Whipped Cream', { hours: 24 })">Whipped&nbsp;Cream</button>
       <button onclick="calculateExpiration('Vanilla Sweet Cream', { hours: 48 })">Vanilla Sweet Cream</button>
-      <button onclick="calculateExpiration('Whipped Cream', { hours: 24 })">Whipped Cream</button>
       <button onclick="calculateExpiration('Protein Milk', { hours: 48 })">Protein Milk</button>
       <button onclick="calculateExpiration('Unsweetened Cream', { hours: 48 })">Unsweetened Cream</button>
     </div>
@@ -257,6 +263,7 @@
     <summary>Seasonal <span class="arrow"></span></summary>
     <div id="seasonalButtons" class="button-grid">
       <button data-item="Cherry Powder" data-start="1-15" data-end="4-31" onclick="calculateExpiration('Cherry Powder', {weeks:2}, 'seasonal')">Cherry Powder</button>
+      <button data-item="Cherry Powder" data-start="4-1" data-end="7-31" onclick="calculateExpiration('Lavender Powder', {weeks:2}, 'seasonal')">Lavender Powder</button>
       <button data-item="Boba Pearls" data-start="4-15" data-end="7-15" onclick="calculateExpiration('Boba Pearls', {days:5}, 'seasonal')">Boba Pearls</button>
       <button data-item="Pumpkin Spice Sauce" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pumpkin Spice Sauce', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
       <button data-item="Pumpkin Spice Topping" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pumpkin Spice Topping', {days:120}, 'seasonal')">Pumpkin Spice Topping</button>
@@ -281,7 +288,7 @@
       if (duration.hours) expiration.setHours(expiration.getHours() + duration.hours);
       if (duration.days) expiration.setDate(expiration.getDate() + duration.days);
       if (duration.weeks) expiration.setDate(expiration.getDate() + duration.weeks * 7);
-      if (duration.months) expiration.setMonth(expiration.getMonth() + duration.months); // <-- Added
+      if (duration.months) expiration.setMonth(expiration.getMonth() + duration.months);
 
       const daysOfWeek = [
         { name: "Sunday", color: "#000" },
@@ -331,7 +338,6 @@
 
     let inRange = false;
     if (end < start) {
-      // Handles ranges that span year-end
       inRange = now >= start || now <= end;
     } else {
       inRange = now >= start && now <= end;
