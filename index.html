@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Starbucks Prep Expiration Calculator</title>
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,8 +15,8 @@
     }
 
     button {
-      margin: 5px;
-      padding: 10px 15px;
+      margin: 0.15rem;
+      padding: 0.75rem 1rem;
       font-size: 16px;
       cursor: pointer;
       background-color: #00704A;
@@ -53,7 +54,7 @@
 
     .dryitems, .liquids {
       display: grid;
-      gap: 3px;
+      gap: 0.1rem;
       justify-items: center;
     }
 
@@ -202,7 +203,7 @@
   <summary>Cold Bar <span class="arrow"></span></summary>
     <div class="button-grid">
     <div class="dryitems">
-      <span style="color: #003A26; font-size: 12px;"><i>Dry Items</i></span>
+      <span style="color: #003A26; font-size: 12px; margin-bottom: -1rem;"><i>Dry Items</i></span>
       <button onclick="calculateExpiration('Strawberry Inclusions', { days: 5 })">Strawberry Inclusions</button>
       <button onclick="calculateExpiration('Dragonfruit Inclusions', { days: 5 })">Dragonfruit Inclusions</button>
             <button onclick="calculateExpiration('Frappuccino Chips', { weeks: 1 })">Frappuccino Chips</button>
@@ -212,11 +213,12 @@
       <button onclick="calculateExpiration('Banana Powder', { hours: 24 })">Banana Powder</button>
     </div>
     <div class="liquids">
-      <span style="color: #003A26; font-size: 12px;"><i>Liquids</i></span><br>
+      <span style="color: #003A26; font-size: 12px; margin-bottom: -1rem;"><i>Liquids</i></span><br>
       <button onclick="calculateExpiration('Frappuccino Roast', { hours: 48 })">Frappuccino Roast</button>     
       <button onclick="calculateExpiration('Cold Brew', { weeks: 1 })">Cold Brew</button>
       <button onclick="calculateExpiration('Lemonade', { hours: 48 })">Lemonade</button>
       <button onclick="calculateExpiration('Refreshers', { hours: 72 })">Refreshers</button>
+      <button onclick="calculateExpiration('Green Coffee Extract', { weeks: 2 })">Green Coffee Extract</button>
       <button onclick="calculateExpiration('Dark Caramel', { weeks: 2 })">Dark Caramel</button>
       <button onclick="calculateExpiration('Whipped Cream', { hours: 24 })">Whipped&nbsp;Cream</button>
       <button onclick="calculateExpiration('Vanilla Sweet Cream', { hours: 48 })">Vanilla Sweet Cream</button>
@@ -264,7 +266,7 @@
     <div id="seasonalButtons" class="button-grid">
       <button data-item="Cherry Powder" data-start="1-15" data-end="4-31" onclick="calculateExpiration('Cherry Powder', {weeks:2}, 'seasonal')">Cherry Powder</button>
       <button data-item="Lavender Powder" data-start="3-1" data-end="7-31" onclick="calculateExpiration('Lavender Powder', {weeks:2}, 'seasonal')">Lavender Powder</button>
-      <button data-item="Ube Powder" data-start="3-1" data-end="7-31" onclick="calculateExpiration('Ube Powder', {weeks:1}, 'seasonal')">Ube Powder</button>
+      <button data-item="Ube Powder" data-start="3-1" data-end="7-31" data-note="(per Shelf Life Matrix)" onclick="calculateExpiration('Ube Powder', {weeks:1}, 'seasonal')">Ube Powder</button>
       <button data-item="Boba Pearls" data-start="4-15" data-end="7-15" onclick="calculateExpiration('Boba Pearls', {days:5}, 'seasonal')">Boba Pearls</button>
       <button data-item="Pumpkin Spice Sauce" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pumpkin Spice Sauce', {weeks:2}, 'seasonal')">Pumpkin Spice Sauce</button>
       <button data-item="Pumpkin Spice Topping" data-start="7-15" data-end="11-30" onclick="calculateExpiration('Pumpkin Spice Topping', {days:120}, 'seasonal')">Pumpkin Spice Topping</button>
@@ -334,8 +336,8 @@
     const [startMonth, startDay] = btn.dataset.start.split('-').map(Number);
     const [endMonth, endDay] = btn.dataset.end.split('-').map(Number);
 
-    const start = new Date(now.getFullYear(), startMonth, startDay);
-    const end = new Date(now.getFullYear(), endMonth, endDay, 23, 59, 59);
+    const start = new Date(now.getFullYear(), startMonth - 1, startDay);
+    const end = new Date(now.getFullYear(), endMonth - 1, endDay, 23, 59, 59);
 
     let inRange = false;
     if (end < start) {
@@ -399,7 +401,11 @@ function generateKeyFromAllButtons() {
   }
 
     const seasonal = btn.dataset.available;
-    html += `<li><b>${itemName}:</b> ${durationText}` + (seasonal ? `<br><small><em>${seasonal}</em></small>` : '') + `</li>`;
+    const note = btn.dataset.note;
+    html += `<li><b>${itemName}:</b> ${durationText}`
+  + (seasonal ? `<br><small><em>${seasonal}</em></small>` : '')
+  + (note ? `<small> ${note}</small>` : '')
+  + `</li>`;
     });
 
 
